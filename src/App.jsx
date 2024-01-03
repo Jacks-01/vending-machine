@@ -80,7 +80,7 @@ function App() {
 			
 			<div style={{}}>
 			{message && (
-				<Alert
+				<Alert style={{position: 'absolute', zIndex: 6, width: '80%'}}
 					variant={
 						message === 'Jeffrey Bezos' ? 'success' : 'danger'
 					}>
