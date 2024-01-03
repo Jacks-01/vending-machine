@@ -1,4 +1,4 @@
-import { Button, Container, Form, Image, Stack } from 'react-bootstrap';
+import { Alert, Button, Container, Form, Image, Stack } from 'react-bootstrap';
 import jeff from './assets/jeff.png';
 import skittles from './assets/skittles.png';
 import mm from './assets/mm.png';
@@ -36,6 +36,7 @@ function App() {
 	const [message, setMessage] = useState();
 
 	const vendingSubmitHandler = () => {
+		setMessage(undefined);
 		vendingMachineHandler(inputCandy, inputMoney);
 	};
 
@@ -48,29 +49,40 @@ function App() {
 
 		let change = 0;
 
+		if (price > 100) {
+			setDispensedCandy(jeff);
+			return;
+		}
+
 		if (price > requestedCandy[0].price) {
 			change = price - requestedCandy[0].price;
 			console.log(
 				`Dispensed: ${requestedCandy[0].name}, Change: ${change}`
 			);
 			setDispensedCandy(requestedCandy[0].src);
-      setReturnChange(change);
-      return
+			setReturnChange(change);
+			return;
 		}
 
 		if (price === requestedCandy[0].price) {
 			console.log(`Dispensed: ${requestedCandy[0].name}`);
-      setDispensedCandy(requestedCandy[0].src);
-      return
+			setDispensedCandy(requestedCandy[0].src);
+			return;
 		}
 
-    console.log('Insuffecient funds')
-    setMessage('Insuffecient funds');
-    return
+		console.log('Insuffecient funds');
+		setMessage('Insuffecient funds');
+		return;
 	};
 
 	return (
 		<>
+			{message && 
+				<Alert variant='danger'>
+					<Alert.Heading>{message}</Alert.Heading>
+				</Alert>
+			}
+
 			<div
 				style={{
 					width: 100,
@@ -134,10 +146,10 @@ function App() {
 					style={{
 						position: 'absolute',
 						zIndex: 5,
-						bottom: 50,
+						bottom: 15,
 						right: 160,
 						width: 200,
-						height: 60,
+						height: 150,
 					}}
 				/>
 			)}
