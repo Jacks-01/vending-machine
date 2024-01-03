@@ -50,7 +50,8 @@ function App() {
 		let change = 0;
 
 		if (price > 100) {
-			setDispensedCandy(jeff);
+      setDispensedCandy(jeff);
+      setMessage('Jeffrey Bezos')
 			return;
 		}
 
@@ -78,8 +79,9 @@ function App() {
 	return (
 		<>
 			{message && 
-				<Alert variant='danger'>
-					<Alert.Heading>{message}</Alert.Heading>
+				<Alert variant={message === 'Jeffrey Bezos' ? 'success' : 'danger'}>
+          <Alert.Heading>{message}</Alert.Heading>
+          {message === 'Jeffrey Bezos' ? <Alert.Link href='https://www.youtube.com/watch?v=ssbPGD2OqRE' target='_blank'> 🎶 Jeffrey Bezos 🎶 </Alert.Link> : <></>}
 				</Alert>
 			}
 
